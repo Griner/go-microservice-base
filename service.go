@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/griner/go-microservice/internal/config"
 	"log"
 )
 
@@ -21,18 +22,20 @@ func main() {
 	}
 
 	// load app config
-	config, err := loadConfig(configFile)
+	cfg, err := config.LoadConfig(configFile)
 	if err != nil {
 		log.Fatalf("Load configuration %s error: %s", configFile, err)
 	}
 
 	// load log config
-	logger, err:= getLogger(&config.Logger)
+	logger, err:= config.GetLogger(&cfg.Logger)
 	if err != nil {
 		log.Fatalf("Logger setup error: %s", err)
 	}
 	defer logger.Sync()
 
 	logger.Info("logger construction succeeded")
-	logger.Debug(fmt.Sprintf("Config %#v\n", config))
+	logger.Debug(fmt.Sprintf("Config %#v\n", cfg))
+
+	// TODO ...
 }

@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"context"
@@ -14,7 +14,7 @@ type AppConfig struct {
 	Logger  zap.Config `config:"logger"`
 }
 
-func loadConfig(configFile string) (*AppConfig, error) {
+func LoadConfig(configFile string) (*AppConfig, error) {
 	// default values
 	cfg := AppConfig{
 		Address: "127.0.0.1",
@@ -30,7 +30,7 @@ func loadConfig(configFile string) (*AppConfig, error) {
 	return &cfg, err
 }
 
-func getLogger(config *zap.Config) (logger *zap.Logger, err error){
+func GetLogger(config *zap.Config) (logger *zap.Logger, err error){
 	logger, err = config.Build()
 	return
 }
